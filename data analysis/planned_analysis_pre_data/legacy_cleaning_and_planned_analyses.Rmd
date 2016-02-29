@@ -1,0 +1,219 @@
+---
+title: 'Data Cleaning and Planned Analysis for Legacy Motives Replication'
+author: "Rhia Catapano"
+date: "February 11, 2016"
+output: 
+  html_document:
+    toc: true
+---
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+rm(list=ls())
+library(tidyr); library(dplyr); library(ggplot2); library(langcog); library(rjson); library(devtools); library(knitr); library(tidyr); library(broom); library(MBESS)
+```
+
+# Data Preparation
+
+```{r, message=FALSE, warning=FALSE}
+path <- "~/Desktop/2016_Winter/Stats_254/Project_Folder_for_MTurk/"
+files <- dir(paste0(path,"sandbox-results"), 
+             pattern = "*.json")
+d.raw <- data.frame(stringsAsFactors = FALSE)
+
+for (f in files) {
+jf <- paste0(path, "/sandbox-results/", f)
+jd <- fromJSON(file=jf)
+
+cols <- which(jd$answers$data$trial_number_block != 0)
+
+id <- data.frame(workerid = jd$WorkerId, 
+                 totalTime = jd$answers$data$totalTime,
+                 totalHiddenTime = jd$answers$data$totalHiddenTime,
+                 condition = jd$answers$data$condition,
+                 trialNum = jd$answers$data$trial_number_block[cols],
+                 trialType = jd$answers$data$trial_type[cols],
+                 sentence = jd$answers$data$sentence[cols],
+                 rating = jd$answers$data$rating, 
+                 environmentalist = jd$answers$data$environmentalist,
+                 legacy_essay = jd$answers$data$legacy_essay,
+                 sex = jd$answers$data$sex,
+                 race = jd$answers$data$race,
+                 year = jd$answers$data$year,
+                 grandparent = jd$answers$data$grandparent,
+                 children = jd$answers$data$children,
+                 stringsAsFactors=FALSE)
+d.raw <- bind_rows(d.raw, id)
+}
+
+
+# Number of participants
+n = length(unique(d.raw$workerid))
+```
+
+# Make indexes for each of the DV's
+
+The 3 DV's are ratings on the behavioral intentions trials, ratings on the environmental attitudes trials, and ratings on the legacy motives trials. The indexes for each are computed as the average of the ratings for the items that make up the composite index.
+
+```{r, message=FALSE, warning=FALSE}
+trial_index <- d.raw %>%
+ group_by(workerid, trialType) %>%
+ summarize("index"=mean(as.numeric(rating)), "condition" = condition[1], "year"=year[1], "sex"=sex[1], "environmentalist" = environmentalist[1], "race" = race[1], "year" = year[1], "grandparent" = grandparent[1], "children" = children[1])
+
+d <- tidyr::spread(trial_index, trialType, index)
+d <- d %>%
+  rename(beh_int_index = beh_int_trial,
+         env_att_index = env_att,
+         leg_mot_index = legacy_motives2)
+
+d$condition <- factor(d$condition, levels = c(0, 1), labels = c("control", "leg_prime"))
+d$sex <- as.factor(d$sex)
+d$environmentalist <- as.factor(d$environmentalist)
+d$race <- as.factor(d$race)
+d$grandparent <- as.factor(d$grandparent)
+d$children <- as.factor(x = d$children)
+```
+
+
+# Initial Visualization via Histogram
+
+Histograms of our 3 index DV's by condition
+```{r, message=FALSE, warning=FALSE}
+#I'll adjust the bins depending on the distribution of the real data
+
+ggplot(d, aes(x=beh_int_index, fill=condition)) +
+    geom_histogram(position="dodge", bins=7)
+
+ggplot(d, aes(x=env_att_index, fill=condition)) +
+    geom_histogram(position="dodge", bins=7)
+
+ggplot(d, aes(x=leg_mot_index, fill=condition)) +
+    geom_histogram(position="dodge", bins=7)
+```
+
+Legacy Motives as a Predictor of Behavioral Intentions
+```{r, message=FALSE, warning=FALSE}
+ggplot(d, aes(x=leg_mot_index, y=beh_int_index, fill=condition)) + 
+  geom_point() +
+  geom_smooth(method = lm)
+```
+
+Legacy Motives as a Predictor of Environmental Attitudes
+```{r, message=FALSE, warning=FALSE}
+ggplot(d, aes(x=leg_mot_index, y=env_att_index, fill=condition)) + 
+  geom_point() +
+  geom_smooth(method = lm)
+```
+
+#Planned Analyses
+
+##Replication of Figure 2
+
+Mean behavioral intention score by condition
+
+```{r, message=FALSE, warning=FALSE}
+ms_beh <- d %>% 
+  group_by(condition) %>% 
+  summarise("beh_int_mean" = mean(beh_int_index, na.rm=TRUE))
+
+ggplot(ms_beh, aes(x=condition, y=beh_int_mean)) + 
+  geom_bar(stat = "identity") + 
+  ylim(0, 6)
+```
+
+
+Mean behavioral attitudes score by condition
+
+```{r, message=FALSE, warning=FALSE}
+ms_att <- d %>% 
+  group_by(condition) %>% 
+  summarise("env_att_mean" = mean(env_att_index, na.rm=TRUE))
+
+ggplot(ms_att, aes(x=condition, y=env_att_mean)) + 
+  geom_bar(stat = "identity") + 
+  ylim(0, 6)
+```
+
+
+## Main Effects from Paper
+
+Effect of legacy prime on legacy motives
+
+```{r, message=FALSE, warning=FALSE}
+model <- lm(leg_mot_index ~ condition, d)
+kable(tidy(model))
+```
+
+Effect of legacy prime on beliefs/attitudes
+
+```{r, message=FALSE, warning=FALSE}
+model <- lm(env_att_index ~ condition, d)
+kable(tidy(model))
+```
+
+Effect of legacy prime on environmental behavior intentions
+
+```{r, message=FALSE, warning=FALSE}
+model <- lm(beh_int_index ~ condition, d)
+kable(tidy(model))
+```
+
+
+##Mediation Analysis
+
+Prints a cleaner output from sobel
+```{r, warning=FALSE, message=FALSE, error=FALSE}
+library(multilevel) #contains sobel
+#printing sobel
+sob_print <- function(sob){
+ df <- do.call(rbind, sob)
+ rnames <- rownames(df)
+ rnames[c(1,3,6)] <- c("Mod1: Y~X", "Mod2: Y~X+M", "Mod3: M~X")
+ rownames(df) <- rnames
+ 
+ return(list("Models"=df[1:7,],
+             "Vals"=data.frame("IndirectEffect"=df[8,1],
+                               "SE"=df[9,1],
+                               "Z"=df[10,1],
+                               "N"=df[11,1])))
+}
+```
+
+
+### Path 1: Prime -> Legacy Motives -> Attitudes
+
+**Sobel**
+```{r, warning=FALSE, message=FALSE, error=FALSE}
+sobel = sobel(d$condition, d$leg_mot_index, d$env_att_index)
+sobel_chart <- sob_print(sobel)
+kable(sobel_chart$Models)
+kable(sobel_chart$Vals)
+```
+
+**Bootstrapping**
+```{r, warning=FALSE, message=FALSE, error=FALSE}
+#This code currently doesn't work, but I think its because my sample is too small, as I've used it to do bootstrapping before. 
+
+#mediation(x = as.numeric(d$condition), 
+#          mediator = d$leg_mot_index, 
+#          dv = d$env_att_index, 
+#          conf.level=.95, bootstrap=TRUE, B=5000)
+```
+
+
+### Path 2: Prime -> Legacy Motives -> Behavioral Intentions
+
+**Sobel**
+```{r, warning=FALSE, message=FALSE, error=FALSE}
+sobel = sobel(d$condition, d$leg_mot_index, d$beh_int_index)
+sobel_chart <- sob_print(sobel)
+kable(sobel_chart$Models)
+kable(sobel_chart$Vals)
+```
+
+**Bootstrapping**
+```{r, warning=FALSE, message=FALSE, error=FALSE}
+#mediation(x = as.numeric(d$condition), 
+#          mediator = d$leg_mot_index, 
+#          dv = d$beh_int_index, 
+#          conf.level=.95, bootstrap=TRUE, B=5000)
+```
