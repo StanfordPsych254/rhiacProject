@@ -94,21 +94,32 @@ jd <- fromJSON(file=jf)
 cols <- which(jd$answers$data$trial_number_block != 0)
 
 id <- data.frame(workerid = jd$WorkerId, 
-                 totalTime = jd$answers$data$totalTime,
-                 totalHiddenTime = jd$answers$data$totalHiddenTime,
-                 condition = jd$answers$data$condition,
-                 trialNum = jd$answers$data$trial_number_block[cols],
-                 trialType = jd$answers$data$trial_type[cols],
-                 sentence = jd$answers$data$sentence[cols],
-                 rating = jd$answers$data$rating, 
-                 environmentalist = jd$answers$data$environmentalist,
-                 legacy_essay = jd$answers$data$legacy_essay,
-                 sex = jd$answers$data$sex,
-                 race = jd$answers$data$race,
-                 year = jd$answers$data$year,
-                 grandparent = jd$answers$data$grandparent,
-                 children = jd$answers$data$children,
-                 stringsAsFactors=FALSE)
+                totalTime = jd$answers$data$totalTime,
+                totalHiddenTime = jd$answers$data$totalHiddenTime,
+                condition = jd$answers$data$condition,
+                trialNum = jd$answers$data$trial_number_block[cols],
+                trialType = jd$answers$data$trial_type[cols],
+                sentence = jd$answers$data$sentence[cols],
+                rating = jd$answers$data$rating, 
+                environmentalist =
+                  ifelse(is.null(unlist(jd$answers$data$environmentalist)),NA,
+                                          unlist(jd$answers$data$environmentalist)),
+                legacy_essay = jd$answers$data$legacy_essay,
+                sex = 
+                  ifelse(is.null(unlist(jd$answers$data$sex)), NA, 
+                         unlist(jd$answers$data$sex)), 
+                race = 
+                  ifelse(is.null(unlist(jd$answers$data$race)), NA,
+                         unlist(jd$answers$data$race)),
+                year = jd$answers$data$year,
+                grandparent =
+                  ifelse(is.null(unlist(jd$answers$data$grandparent)),NA,
+                         unlist(jd$answers$data$grandparent)),
+                children = 
+                  ifelse(is.null(unlist(jd$answers$data$children)),NA,
+                         unlist(jd$answers$data$children)),
+                stringsAsFactors=FALSE)
+
 d.raw <- bind_rows(d.raw, id)
 }
 
@@ -160,14 +171,14 @@ ggplot(d, aes(x=leg_mot_index, fill=condition)) +
 
 Legacy Motives as a Predictor of Behavioral Intentions
 ```{r, message=FALSE, warning=FALSE}
-ggplot(d, aes(x=leg_mot_index, y=beh_int_index, fill=condition)) + 
+ggplot(d, aes(x=leg_mot_index, y=beh_int_index, color=condition)) + 
   geom_point() +
   geom_smooth(method = lm)
 ```
 
 Legacy Motives as a Predictor of Environmental Attitudes
 ```{r, message=FALSE, warning=FALSE}
-ggplot(d, aes(x=leg_mot_index, y=env_att_index, fill=condition)) + 
+ggplot(d, aes(x=leg_mot_index, y=env_att_index, color=condition)) + 
   geom_point() +
   geom_smooth(method = lm)
 ```
