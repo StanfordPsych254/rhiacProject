@@ -171,16 +171,16 @@ ggplot(d, aes(x=leg_mot_index, fill=condition)) +
 
 Legacy Motives as a Predictor of Behavioral Intentions
 ```{r, message=FALSE, warning=FALSE}
-ggplot(d, aes(x=leg_mot_index, y=beh_int_index, color=condition)) + 
-  geom_point() +
-  geom_smooth(method = lm)
+ggplot(d) + 
+   geom_point(aes(x=leg_mot_index, y=beh_int_index, color=condition)) +
+   geom_smooth(method = lm, aes(x=leg_mot_index, y=beh_int_index))
 ```
 
 Legacy Motives as a Predictor of Environmental Attitudes
 ```{r, message=FALSE, warning=FALSE}
-ggplot(d, aes(x=leg_mot_index, y=env_att_index, color=condition)) + 
-  geom_point() +
-  geom_smooth(method = lm)
+ggplot(d) + 
+   geom_point(aes(x=leg_mot_index, y=env_att_index, color=condition)) +
+   geom_smooth(method = lm, aes(x=leg_mot_index, y=env_att_index))
 ```
 
 **Figures of interest**
