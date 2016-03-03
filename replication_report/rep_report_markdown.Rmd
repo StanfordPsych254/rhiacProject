@@ -256,7 +256,7 @@ sob_print <- function(sob){
 
 **Path 1: Prime -> Legacy Motives -> Attitudes**
 
-The original paper reports: "To confirm that the influence of the legacy prime on climate-change attitudes was driven by increases in leg- acy motives, we conducted a mediation analysis using the mean legacy-motives score as a mediator. The effect of the legacy prime on individuals’ climate-change beliefs was fully mediated by increases in legacy motives—direct effect of the priming condition on beliefs: t(308) = 2.01; effect of priming condition on beliefs, mediated by legacy motives: t(308) = 1.29, Sobel’s z = 2.19, p = .028. Mediation was also confirmed by a bias-corrected bootstrapping procedure using 5,000 samples (Preacher & Hayes, 2008; see Median Test in the Supplemental Material). This analysis showed that the indirect effect of the legacy prime on climate-change beliefs through legacy motives was significant, with a 95% confidence interval (CI) that excluded zero (β = 0.041, 95% CI = [0.01, 0.09], p = .029). "
+The original paper reports: "To confirm that the influence of the legacy prime on climate-change attitudes was driven by increases in legacy motives, we conducted a mediation analysis using the mean legacy-motives score as a mediator. The effect of the legacy prime on individuals’ climate-change beliefs was fully mediated by increases in legacy motives—direct effect of the priming condition on beliefs: t(308) = 2.01; effect of priming condition on beliefs, mediated by legacy motives: t(308) = 1.29, Sobel’s z = 2.19, p = .028. Mediation was also confirmed by a bias-corrected bootstrapping procedure using 5,000 samples (Preacher & Hayes, 2008; see Median Test in the Supplemental Material). This analysis showed that the indirect effect of the legacy prime on climate-change beliefs through legacy motives was significant, with a 95% confidence interval (CI) that excluded zero (β = 0.041, 95% CI = [0.01, 0.09], p = .029). "
 
 Sobel
 ```{r, warning=FALSE, message=FALSE, error=FALSE}
@@ -301,13 +301,13 @@ Bootstrapping
 
 
 ###Exploratory analyses
-Any follow-up analyses desired (not required).
+Any follow-up analyses
 
 ##Discussion
 
 ###Summary of Replication Attempt
-Open the discussion section with a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.  
+Here will be a paragraph summarizing the primary result from the confirmatory analysis and the assessment of whether it replicated, partially replicated, or failed to replicate the original result.  
 
 ###Commentary
-Add open-ended commentary (if any) reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt.  None of these need to be long.
+Here will be an open-ended commentary reflecting (a) insights from follow-up exploratory analysis, (b) assessment of the meaning of the replication (or not) - e.g., for a failure to replicate, are the differences between original and present study ones that definitely, plausibly, or are unlikely to have been moderators of the result, and (c) discussion of any objections or challenges raised by the current and original authors about the replication attempt.
 
