@@ -82,7 +82,7 @@ Any differences from what was described as the original plan, or “none”.
 Read in the data from .json files, and format into a dataframe.
 
 ```{r, message=FALSE, warning=FALSE}
-path <- "~/Desktop/2016_Winter/Stats_254/Project_Folder_for_MTurk/"
+path <- "~/Desktop/2016_Winter/Stats_254/Project/rhiacProject/replication_report/"
 files <- dir(paste0(path,"sandbox-results"), 
              pattern = "*.json")
 d.raw <- data.frame(stringsAsFactors = FALSE)
