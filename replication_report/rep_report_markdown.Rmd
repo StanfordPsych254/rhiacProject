@@ -87,6 +87,8 @@ files <- dir(paste0(path,"sandbox-results"),
              pattern = "*.json")
 d.raw <- data.frame(stringsAsFactors = FALSE)
 
+
+
 for (f in files) {
 jf <- paste0(path, "/sandbox-results/", f)
 jd <- fromJSON(file=jf)
@@ -123,6 +125,13 @@ id <- data.frame(workerid = jd$WorkerId,
 d.raw <- bind_rows(d.raw, id)
 }
 
+#remove "filler"" questions
+fillers <- c("I am well liked by my friends", 
+            "I feel a connection to future generations",
+            "I feel a sense of responsibility to future generations",
+            "I have important skills I can pass along to others",
+            "Others would say I have made unique contributions to my community or society")
+d.raw <- d.raw %>% filter(!sentence %in% fillers)
 
 # Number of participants
 n = length(unique(d.raw$workerid))
