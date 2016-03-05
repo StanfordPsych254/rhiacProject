@@ -326,10 +326,10 @@
 
 
 
-<!-- The debrief slide. -->
+<!-- The demographics slide. -->
     <div class="slide" id="demographics_slide">
 
-     <form id="demographics" onsubmit="experiment.submitcomments()">
+     <form id="demographics" onsubmit="experiment.next()">
 
 
       <br>
@@ -401,19 +401,19 @@
  </form>
 
  <div align="center">
-   <button type="button" id="nextButton_choice" onClick="this.blur(); experiment.next()">Submit</button>
+   <button type="button" id="debriefsubmit" onClick="this.blur(); experiment.next(); experiment.submit_comments()">Submit</button>
  </div>
 
 </div>
 
-<div class="slide" id="demographics_slide">
+<div class="slide" id="debrief_slide">
   <br>
   <div align="center">
     <p class="block-text">SLIDEEEEEEE.</p><br>
   </div>
   <table align="center"><tr>
     <td align="center">
-      <button type="button" id="debriefsubmit" onClick="experiment.submit_comments()"> Continue</button>
+      <button type="button" id="submit" onClick="experiment.submit_comments()"> Continue</button>
     </td>
     <tr><td align="center">
     </td></tr>
