@@ -255,7 +255,7 @@ data: {
 	    //If the current trial is undefined, call the end function.
 
 	    if (typeof trial_info == "undefined") {
-			return experiment.debrief_slide();
+			return experiment.demographics_slide();
 	    }
 
 
@@ -298,8 +298,8 @@ data: {
 
 
     //	go to demographics slide
-    debrief_slide: function() {
-	showSlide("debrief_slide");
+    demographics_slide: function() {
+	showSlide("demographics_slide");
     },
 
 
