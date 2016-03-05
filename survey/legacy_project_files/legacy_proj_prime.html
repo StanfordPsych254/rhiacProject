@@ -1,0 +1,423 @@
+
+<!-- ## Code -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Choices and Beliefs Survey</title>
+  <script src="jquery-1.11.2.min.js"></script>
+  <script src="mmturkey-0.6.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <script src="//uniqueturker.myleott.com/lib.js" type="text/javascript"></script>
+  <script type="text/javascript">
+  (function(){
+      var ut_id = "a03e72893eb88d5363b2732a0bf201ff";
+      if (UTWorkerLimitReached(ut_id)) {
+          document.getElementById('mturk_form').style.display = 'none';
+          document.getElementsByTagName('body')[0].innerHTML = "You have already completed the maximum number of HITs allowed by this requester. Please click 'Return HIT' to avoid any impact on your approval rating.";
+      }
+  })();
+  </script>
+</head>
+<body>
+
+
+
+<!-- The instructions slide. -->
+<div class="slide" id="instructions">
+  <br>
+  <img src="images/stanford.png" alt="Stanford University">
+  <br><br><br>
+  <p class="block-text">Thank you for participating in our survey. Over the next few minutes, you'll be asked to respond to a number of simple questions. Please answer all of the questions in this survey as honestly as you can so that we can collect the highest quality data possible.</p>
+  <button type="button" onclick="this.blur(); experiment.next()">Start</button>
+  <p class="block-text" id="legal">By answering the following questions, you are participating in a study being performed by the Stanford Department of Psychology. If you have questions about this research, please contact us at <a href="mailto://mturk.psychology@gmail.com.">mturk.psychology@gmail.com</a>. You must be  at least 18 years old to participate. Your participation in this research is voluntary. You may decline further participation, at any time, without adverse consequences. Your anonymity is assured; the researchers who have requested your participation will not receive any personal information about you. Note however that we have recently been made aware that your public Amazon.com profile can be accessed via your worker ID if you do not choose to opt out. If you would like to opt out of this feature, you may follow instructions available <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=16465241">here</a>.</p>
+</div>
+
+<!-- Progress Bar -->
+
+<div class="progress">
+  <div id="progress" class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:0%">
+  </div>
+</div>
+
+<!-- Manipulation Block -->
+
+<div class="slide" id="manipulation">
+  <br>
+  <p class="block-text">What do you want to be remembered for? For this writing task, we would like you to think about what you want future generations to remember you for when you're gone. In answering this question, you might think about ways in which you will have a positive impact on other people, skills or knowledge you will teach others, or aspects of your personality that you would like to be remembered for. In the space below, please write a brief essay describing your response to this question and try to be as honest as you can be.
+  <br><br>
+  Please write approximately a half a page. This task should take you around 4 minutes. The "Next" Button will appear after the alloted time has passed.
+  <br>
+ </p>
+  <p align="center">
+  <textarea id="legacy_essay" name="lg" rows="10" cols="70" value=""></textarea>
+ </p>
+  <table align="center"><tr>
+    <td align="center">
+      <div id="more_words_alert"> </div>
+    </td>
+    <tr><td align="center">
+      <button type="button" id="mybutton" onClick="this.blur(); return checkWordCount()"> Next</button>
+    </td></tr>
+  </table>
+</div>
+
+<!---instructions 2 -->
+<div class="slide" id="instructions_2">
+  <br>
+
+  <div align="center">
+    <p class="block-text"> Now, we will ask you some questions about yourself. Please click to continue.</p><br>
+  </div>
+
+  <table align="center"><tr>
+    <td align="center">
+      <button type="button" id="nextButton_choice" onClick="this.blur(); experiment.next()"> Continue</button>
+    </td>
+    <tr><td align="center">
+    </td></tr>
+  </table>
+
+</div>
+
+<!---Behavioral Intentions Instructions -->
+<div class="slide" id="beh_int_ins">
+  <br>
+  <div align="center">
+    <p class="block-text">As part of this survey, we are interested in hearing your thoughts and opinions on various "hot topics". On the next few pages, we'll ask you a few questions about one of the following topic areas: "environment", "health", or "finance". You will only have to answer questions about one of these topics.</p><br>
+  </div>
+
+  <table align="center"><tr>
+    <td align="center">
+      <button type="button" id="nextButton_choice" onClick="this.blur(); experiment.next()"> Continue</button>
+    </td>
+    <tr><td align="center">
+    </td></tr>
+  </table>
+
+</div>
+
+<!-- Behavioral Intentions instructions 2 -->
+<div class="slide" id="beh_int_ins2">
+  <br>
+  <div align="center">
+    <p class="block-text">Your topic today will be Environment.</p><br>
+  </div>
+
+  <table align="center"><tr>
+    <td align="center">
+      <button type="button" id="nextButton_choice" onClick="this.blur(); experiment.next()"> Continue</button>
+    </td>
+    <tr><td align="center">
+    </td></tr>
+  </table>
+
+</div>
+
+<!-- Behavioral Intentions instructions 3 -->
+<div class="slide" id="beh_int_ins3">
+  <br>
+  <div align="center">
+    <p class="block-text">First, we'd like to ask you how often you intend to perform a variety of household actions over the course of the next three months.</p><br>
+  </div>
+
+  <table align="center"><tr>
+    <td align="center">
+      <button type="button" id="nextButton_choice" onClick="this.blur(); experiment.next()"> Continue</button>
+    </td>
+    <tr><td align="center">
+    </td></tr>
+  </table>
+
+</div>
+
+
+
+<!-- Questionnaire slide 1 - behavioral intentions -->
+
+<div class="slide" id="beh_int_slide">
+  <br>
+
+  <div align="center">
+    <h5><b>Please indicate how often you intend to perform the following behaviors over the next 3 months</b></h5><br>
+  </div>
+
+  <!-- Show sentence from behavioral intentions items -->
+  <div align="center">
+    <p id ="beh_int">{{}}</p>
+  </div>
+
+  <br>
+
+  <!-- Likert radio buttons -->
+  <table align = "center"><tr>
+    <td align="center">
+      <tr>
+        <td></td>
+        <td><label for="likert1">Never</label></td>
+        <td><label for="likert2">Very infrequently</label></td>
+        <td><label for="likert3">Once in a while</label></td>
+        <td><label for="likert4">Sometimes</label></td>
+        <td><label for="likert5">Often</label></td>
+        <td><label for="likert6">All the time</label></td>
+        <td>&nbsp;&nbsp;&nbsp;</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input id ="likert1" type="radio" name="judgment" value = "1"></td>
+        <td><input id ="likert2" type="radio" name="judgment" value = "2"></td>
+        <td><input id ="likert3" type="radio" name="judgment" value = "3"></td>
+        <td><input id ="likert4" type="radio" name="judgment" value = "4"></td>
+        <td><input id ="likert5" type="radio" name="judgment" value = "5"></td>
+        <td><input id ="likert6" type="radio" name="judgment" value = "6"></td>
+        <td>&nbsp;&nbsp;&nbsp;</td>
+      </tr>
+    </table>
+
+    <!-- Next button and "please make a response" message -->
+    <table align="center"><tr>
+      <td align="center">
+        <button type="button" id="nextButton_Beh" onClick="experiment.log_response()"> next</button>
+      </td>
+      <tr><td align="center">
+        <div id="testMessage_beh"> </div>
+      </td></tr>
+    </table>
+</div>
+
+
+<!-- Environmental Attitudes instructions slide. -->
+<div class="slide" id="env_att_slide">
+
+  <br>
+  <p class="block-text">Next, we'll ask a few questions about your attitudes regarding environmental issues. There are no right or wrong answers - we just want to hear what you think.</p>
+  <table align="center"><tr>
+    <td align="center">
+      <button type="button" id="nextButton_choice" onClick="this.blur(); experiment.next()"> Continue</button>
+    </td>
+    <tr><td align="center">
+
+    </td></tr>
+
+  </table>
+
+</div>
+
+<!-- Questionnaire slide 2 - Environmental Attitudes -->
+
+<div class="slide" id="env_att_slide2">
+
+ <br>
+
+ <div align="center">
+  <h5><b>To what extent do you agree/disagree with the following statement?</b></h5><br>
+</div>
+<div align="center">
+  <p id ="env_att">{{}}</p>
+</div>
+<br>
+
+<!-- Likert radio buttons -->
+<table align = "center"><tr>
+  <td align="center">
+    <tr>
+      <td></td>
+      <td><label for="likert1">Strongly Disagree</label></td>
+      <td><label for="likert2">Disagree</label></td>
+      <td><label for="likert3">Somewhat Disagree</label></td>
+      <td><label for="likert4">Neither Agree nor Disagree</label></td>
+      <td><label for="likert5">Somewhat Agree</label></td>
+      <td><label for="likert6">Agree</label></td>
+      <td><label for="likert7">Strongly Agree</label></td>
+      <td>&nbsp;&nbsp;&nbsp;</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><input id ="likert1" type="radio" name="judgment" value = "1"></td>
+      <td><input id ="likert2" type="radio" name="judgment" value = "2"></td>
+      <td><input id ="likert3" type="radio" name="judgment" value = "3"></td>
+      <td><input id ="likert4" type="radio" name="judgment" value = "4"></td>
+      <td><input id ="likert5" type="radio" name="judgment" value = "5"></td>
+      <td><input id ="likert6" type="radio" name="judgment" value = "6"></td>
+      <td><input id ="likert7" type="radio" name="judgment" value = "7"></td>
+      <td>&nbsp;&nbsp;&nbsp;</td>
+    </tr>
+  </table>
+
+      <!-- Next button and "please make a response" message -->
+
+      <table align="center"><tr>
+        <td align="center">
+          <button type="button" id="nextButton_env_att" onClick="experiment.log_response()"> next</button>
+        </td>
+        <tr><td align="center">
+          <div id="testMessage_env_att"> </div>
+        </td></tr>
+
+      </table>
+
+    </div>
+
+<!-- Legacy Motives Instruction Slide -->
+
+<div class="slide" id="legacy_motives_slide">
+  <p class=block-text>Next, we'd like to ask you a few questions about yourself. For these questions, there are no "right" or "wrong" answers. Everybody responds differently depending on how they think about themselves and the world.</p>
+  <table align="center"><tr>
+    <td align="center">
+      <button type="button" id="nextButton_choice" onClick="this.blur(); experiment.next()"> Continue</button>
+    </td>
+    <tr><td align="center">
+    </td></tr>
+  </table>
+</div>
+
+<!-- Legacy Motives slides -->
+<div class="slide" id="legacy_motives_slide2">
+  <br>
+
+  <div align="center">
+   <h5><b>To what extent does the following statement characterize you?</b></h5><br>
+  </div>
+  <div align="center">
+   <p id ="leg_mot">{{}}</p>
+  </div>
+
+  <table align = "center"><tr>
+    <td align="center">
+      <tr>
+        <td></td>
+        <td><label for="likert1">Not at all</label></td>
+        <td><label for="likert2">Not very much</label></td>
+        <td><label for="likert3">A little bit</label></td>
+        <td><label for="likert4">Somewhat</label></td>
+        <td><label for="likert5">A good deal</label></td>
+        <td><label for="likert6">A great amount</label></td>
+        <td>&nbsp;&nbsp;&nbsp;</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input id ="likert1" type="radio" name="judgment" value = "1"></td>
+        <td><input id ="likert2" type="radio" name="judgment" value = "2"></td>
+        <td><input id ="likert3" type="radio" name="judgment" value = "3"></td>
+        <td><input id ="likert4" type="radio" name="judgment" value = "4"></td>
+        <td><input id ="likert5" type="radio" name="judgment" value = "5"></td>
+        <td><input id ="likert6" type="radio" name="judgment" value = "6"></td>
+        <td>&nbsp;&nbsp;&nbsp;</td>
+      </tr>
+    </table>
+
+    <table align="center"><tr>
+      <td align="center">
+        <button type="button" id="nextButton_leg" onClick="experiment.log_response()"> next</button>
+      </td>
+      <tr><td align="center">
+        <div id="testMessage_leg"> </div>
+      </td></tr>
+
+    </table>
+
+
+
+  <br>
+</div>
+
+
+
+<!-- The debriefing slide. -->
+    <div class="slide" id="debriefing">
+
+     <form id="demographics" onsubmit="experiment.submitcomments()">
+
+
+      <br>
+      <br>
+
+
+      <p><b>What is your sex?</b></p>
+      <p>
+      <input type="radio" id="sex_m" name="sex" value="male">
+      Male
+      <input type="radio" id="sex_f" name="sex" value="female">
+      Female
+      <input type="radio" id="sex_o" name="sex" value="other">
+      Other
+      </p>
+
+      <p><b>What is your age? Please enter in numeric form (ex. "26") </b></p>
+      <p>
+       <input type="number" id="year" name="lg" style="width:40%" value=""></textarea>
+     </p>
+
+     <p><b>Do you consider yourself to be an environmentalist?</b></p>
+     <p>
+      <input type="radio" id="environ_y" name="environmentalist" value="yes">
+      Yes
+      <input type="radio" id="environ_n" name="environmentalist" value="no">
+      No
+    </p>
+
+    <p><b>What is your race/ethnicity?</b></p>
+    <p>
+     <input type="radio" id="race_white" name="race" value="white">
+     White/Caucasian
+     <input type="radio" id="race_africanamerican" name="race" value="African_American">
+     African American
+     <input type="radio" id="race_hispanic" name="race" value="Hispanic">
+     Hispanic
+     <input type="radio" id="race_asian" name="race" value="Asian">
+     Asian
+     <input type="radio" id="race_nativeamerican" name="race" value="Native_American">
+     Native American
+     <input type="radio" id="race_pacificislander" name="race" value="Pacific">
+     Pacific Islander
+     <input type="radio" id="race_other" name="race" value="Other">
+     Other
+   </p>
+
+     <p><b>Do you have children?</b></p>
+     <p>
+      <input type="radio" id="children_y" name="children" value="yes">
+      Yes
+      <input type="radio" id="children_n" name="children" value="no">
+      No
+    </p>
+
+    <p><b>Are you a grandparent?</b></p>
+    <p>
+     <input type="radio" id="gparent_y" name="grandparent" value="yes">
+     Yes
+     <input type="radio" id="gparent_n" name="grandparent" value="no">
+     No
+   </p>
+
+   <p><b>What do you think this study was about? </b></p>
+   <p>
+     <textarea id="purpose" name="lg" rows="3" cols="70" value=""></textarea>
+  </p>
+
+
+ </form>
+
+ <div align="center">
+   <button type="button" id="debriefsubmit" onClick="experiment.submit_comments()">Submit</button>
+ </div>
+
+</div>
+
+<!-- The finish slide. -->
+<div class="slide" id="finished">
+ You're finished - thanks for participating! Submitting to Mechanical Turk...
+</div>
+
+<script src="legacy_proj_prime.js"></script>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  $('#mybutton').hide().delay(24000).fadeIn(2200);
+  });
+</script>
+
+</body>
+</html>

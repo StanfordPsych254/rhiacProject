@@ -1,0 +1,15 @@
+{
+    "title":               "Beliefs and Evaluations Survey",
+    "description":         "A simple survey that asks questions regarding your views on an issue and your preferences",
+    "keywords":            "evaluations, beliefs, preferences",
+    "url":                 "http://stanford.edu/~rhiac/Psych254/legacy_proj.html",
+    "frame_height":         450,
+    "assignment_duration":  "45 minutes",
+    "auto_approval_delay":  "5 minutes",
+    "reward":               0.50,
+    "server_log_path":      "https://langcog.stanford.edu/cgi-bin/cosub/log_submission.php",
+    "qualifications": {
+        "location": "US",
+        "approval_percentage": 85
+    }
+}
