@@ -151,10 +151,6 @@ for (i = 0; i < totalTrialsLegMot; i++) {
 		trials.push(trial);
 	}
 
-	trials.push(trial = {sentence: "",
-		trial_number_block: 0,
-		trial_type: "demographics_slide"});
-
 // Show the instructions slide -- this is what we want subjects to see first.
 showSlide("instructions");
 
@@ -255,7 +251,7 @@ data: {
 	    //If the current trial is undefined, call the end function.
 
 	    if (typeof trial_info == "undefined") {
-			return experiment.demographics_slide();
+			return experiment.debriefing();
 	    }
 
 
@@ -283,9 +279,7 @@ data: {
 	    } else if (trial_info.trial_type == "env_att"){
 			$("#env_att").html(trial_info.sentence);
 	    	showSlide("env_att_slide2");
-	    } else if (trial_info.trial_type == "demographics_slide"){
-				slowSlide("demographics_slide")
-			}
+	    }
 
 
 //note: for testing, comment this section out to see outputs
@@ -297,9 +291,9 @@ data: {
     },
 
 
-    //	go to demographics slide
-    demographics_slide: function() {
-	showSlide("demographics_slide");
+    //	go to debriefing slide
+    debriefing: function() {
+	showSlide("debriefing");
     },
 
 

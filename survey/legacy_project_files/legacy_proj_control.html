@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Choices and Beliefs on Issues Survey</title>
+  <title>Choices and Beliefs Survey</title>
   <script src="jquery-1.11.2.min.js"></script>
   <script src="mmturkey-0.6.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
@@ -30,11 +30,9 @@
   <br>
   <img src="images/stanford.png" alt="Stanford University">
   <br><br><br>
-  <p class ="block-text"> NOTE: If you have completed a HIT this week to complete a survey entitled "Choices and Beliefs on Issues Survey", please DO NOT accept this HIT. </p>
   <p class="block-text">Thank you for participating in our survey. Over the next few minutes, you'll be asked to respond to a number of simple questions. Please answer all of the questions in this survey as honestly as you can so that we can collect the highest quality data possible.</p>
   <button type="button" onclick="this.blur(); experiment.next()">Start</button>
-  <p class="block-text" id="legal">
-    By answering the following questions, you are participating in a study being performed by cognitive scientists in the Stanford Department of Psychology. If you have questions about this research, please contact us at <a href="mailto://stanfordpsych254@gmail.com.">stanfordpsych254@gmail.com</a>. You must be at least 18 years old to participate. Your participation in this research is voluntary. You may decline to answer any or all of the following questions. You may decline further participation, at any time, without adverse consequences. Your anonymity is assured; the researchers who have requested your participation will not receive any personal information about you. We have recently been made aware that your public Amazon.com profile can be accessed via your worker ID if you do not choose to opt out. If you would like to opt out of this feature, you may follow instructions available <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=16465241">here</a></p>
+  <p class="block-text" id="legal">By answering the following questions, you are participating in a study being performed by the Stanford Department of Psychology. If you have questions about this research, please contact us at <a href="mailto://mturk.psychology@gmail.com.">mturk.psychology@gmail.com</a>. You must be  at least 18 years old to participate. Your participation in this research is voluntary. You may decline further participation, at any time, without adverse consequences. Your anonymity is assured; the researchers who have requested your participation will not receive any personal information about you. Note however that we have recently been made aware that your public Amazon.com profile can be accessed via your worker ID if you do not choose to opt out. If you would like to opt out of this feature, you may follow instructions available <a href="https://www.amazon.com/gp/help/customer/display.html?nodeId=16465241">here</a>.</p>
 </div>
 
 <!-- Progress Bar -->
@@ -326,8 +324,8 @@
 
 
 
-<!-- The debrief slide. -->
-    <div class="slide" id="demographics_slide">
+<!-- The debriefing slide. -->
+    <div class="slide" id="debriefing">
 
      <form id="demographics" onsubmit="experiment.submitcomments()">
 
@@ -401,29 +399,10 @@
  </form>
 
  <div align="center">
-   <button type="button" id="nextButton_choice" onClick="this.blur(); experiment.next()">Submit</button>
+   <button type="button" id="debriefsubmit" onClick="experiment.submit_comments()">Submit</button>
  </div>
 
 </div>
-
-<div class="slide" id="demographics_slide">
-  <br>
-  <div align="center">
-    <p class="block-text">SLIDEEEEEEE.</p><br>
-  </div>
-  <table align="center"><tr>
-    <td align="center">
-      <button type="button" id="debriefsubmit" onClick="experiment.submit_comments()"> Continue</button>
-    </td>
-    <tr><td align="center">
-    </td></tr>
-  </table>
-
-</div>
-
-
-
-
 
 <!-- The finish slide. -->
 <div class="slide" id="finished">
