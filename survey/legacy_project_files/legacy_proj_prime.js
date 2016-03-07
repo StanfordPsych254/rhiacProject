@@ -254,6 +254,10 @@ data: {
 			return experiment.debriefing();
 	    }
 
+			if (typeof trial_info == "prefinish") {
+		  return experiment.prefinish();
+	    }
+
 
 	    // check which trial type you're in and display correct slide
 	    if (trial_info.trial_type == "beh_int_trial") {
@@ -290,6 +294,10 @@ data: {
 	}
     },
 
+		//  go to prefinish slide
+    prefinish: function() {
+    showSlide("prefinish");
+    },
 
     //	go to debriefing slide
     debriefing: function() {

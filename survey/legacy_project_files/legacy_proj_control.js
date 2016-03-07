@@ -151,11 +151,6 @@ for (i = 0; i < totalTrialsLegMot; i++) {
 		trials.push(trial);
 	}
 
-// Add prefinish slide before undefined debreif slide
-//trials.push(trial = {sentence: "",
-//    trial_number_block: 0,
-//    trial_type: "prefinish"});
-
 // Show the instructions slide -- this is what we want subjects to see first.
 showSlide("instructions");
 
@@ -287,7 +282,7 @@ data: {
 	    } else if (trial_info.trial_type == "env_att"){
 			$("#env_att").html(trial_info.sentence);
 	    	showSlide("env_att_slide2");
-	    } 
+	    }
 
 
 //note: for testing, comment this section out to see outputs

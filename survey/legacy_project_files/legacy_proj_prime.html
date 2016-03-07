@@ -386,16 +386,41 @@
    <p><b>What do you think this study was about? </b></p>
    <p>
      <textarea id="purpose" name="lg" rows="3" cols="70" value=""></textarea>
-  </p>
+   </p>
 
+  </form>
+  <table align="center"><tr>
+     <td align="center">
+       <button type="button" id="nextButton_prefinish" onClick="this.blur(); experiment.prefinish()"> Continue</button>
+     </td>
+     <tr><td align="center">
+     </td></tr>
+   </table>
 
- </form>
-
- <div align="center">
-   <button type="button" id="debriefsubmit" onClick="experiment.submit_comments()">Submit</button>
  </div>
 
-</div>
+ <!-- The pre-finish slide. -->
+ <div class="slide" id="prefinish">
+   <p class="block-text">
+ <b><center>DEBRIEFING</center></b>
+ <br><br>
+ In this study, we are interested in how to increase pro-environmental attitudes and behaviors. Previous research suggests that thinking about the legacy a person wants to leave may increase their pro-environmental attitudes and behaviors; thus, in this study, some people were prompted to write about legacy motives, while others were not. Thank you for contributing to our understanding of how to encourage pro-environmental behaviors in the future.
+ <br><br><br>
+
+  <div align="center">
+    <button type="button" id="debriefsubmit" onClick="experiment.submit_comments()">Submit</button>
+  </div>
+  </p>
+ </div>
+
+ <!-- The finish slide. -->
+ <div class="slide" id="finished">
+   <p class="block-text">
+  You're finished - thanks for participating!
+ <br><br>
+  Submitting to Mechanical Turk...
+  </p>
+ </div>
 
 <!-- The finish slide. -->
 <div class="slide" id="finished">
