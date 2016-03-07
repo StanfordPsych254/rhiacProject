@@ -73,6 +73,11 @@ img {
 </div>
 <div id="methods" class="section level2">
 <h2>Methods</h2>
+<div id="link-to-experiment" class="section level3">
+<h3>Link to Experiment</h3>
+<p>The control condition is available online at: <a href="http://stanford.edu/~rhiac/Psych254/legacy_proj_control.html" class="uri">http://stanford.edu/~rhiac/Psych254/legacy_proj_control.html</a></p>
+<p>The experimental (prime) condition is available online at: <a href="http://stanford.edu/~rhiac/Psych254/legacy_proj_prime.html" class="uri">http://stanford.edu/~rhiac/Psych254/legacy_proj_prime.html</a></p>
+</div>
 <div id="power-analysis" class="section level3">
 <h3>Power Analysis</h3>
 <p>The original study reports cohen’s d’s ranging from 0.23 to 0.36 on the various measures used (legacy motives, climate change beliefs, behavioral intentions, and donation measure). Therefore, I’ve assumed a cohen’s d of 0.23, to be conservative. The standard deviation for most of the measures is approximately 1.</p>
@@ -159,14 +164,14 @@ files &lt;- dir(paste0(path,&quot;sandbox-results&quot;),
              pattern = &quot;*.json&quot;)
 d.raw &lt;- data.frame(stringsAsFactors = FALSE)
 
-
-
 for (f in files) {
 jf &lt;- paste0(path, &quot;/sandbox-results/&quot;, f)
 jd &lt;- fromJSON(file=jf)
 
+#get rid of all of the instruction trials, which are labeled with 0
 cols &lt;- which(jd$answers$data$trial_number_block != 0)
 
+#This code formats everything into a useable dataframe, and accounts for missing values by turning them into NA's
 id &lt;- data.frame(workerid = jd$WorkerId, 
                 totalTime = jd$answers$data$totalTime,
                 totalHiddenTime = jd$answers$data$totalHiddenTime,
@@ -176,8 +181,7 @@ id &lt;- data.frame(workerid = jd$WorkerId,
                 sentence = jd$answers$data$sentence[cols],
                 rating = jd$answers$data$rating, 
                 environmentalist =
-                  ifelse(is.null(unlist(jd$answers$data$environmentalist)),NA,
-                                          unlist(jd$answers$data$environmentalist)),
+                  ifelse(is.null(unlist(jd$answers$data$environmentalist)),NA,                                          unlist(jd$answers$data$environmentalist)),
                 legacy_essay = jd$answers$data$legacy_essay,
                 sex = 
                   ifelse(is.null(unlist(jd$answers$data$sex)), NA, 
@@ -205,9 +209,9 @@ fillers &lt;- c(&quot;I am well liked by my friends&quot;,
             &quot;Others would say I have made unique contributions to my community or society&quot;)
 d.raw &lt;- d.raw %&gt;% filter(!sentence %in% fillers)
 
-# Number of participants
+# Check number of participants to ensure no repeats
 n = length(unique(d.raw$workerid))</code></pre>
-<p>The 3 DV’s are ratings on the behavioral intentions trials, ratings on the environmental attitudes trials, and ratings on the legacy motives trials. The indexes for each are computed as the average of the ratings for the items that make up the composite index.</p>
+<p>The 3 DV’s are <strong>ratings</strong> on the <strong>behavioral intentions trials</strong>, <strong>ratings</strong> on the <strong>environmental attitudes trials</strong>, and <strong>ratings on the legacy motives trials</strong>. The indexes for each are computed as the average of the ratings for the items that make up the composite index.</p>
 <pre class="r"><code>trial_index &lt;- d.raw %&gt;%
  group_by(workerid, trialType) %&gt;%
  summarize(&quot;index&quot;=mean(as.numeric(rating)), &quot;condition&quot; = condition[1], &quot;year&quot;=year[1], &quot;sex&quot;=sex[1], &quot;environmentalist&quot; = environmentalist[1], &quot;race&quot; = race[1], &quot;year&quot; = year[1], &quot;grandparent&quot; = grandparent[1], &quot;children&quot; = children[1])
@@ -218,6 +222,7 @@ d &lt;- d %&gt;%
          env_att_index = env_att,
          leg_mot_index = legacy_motives2)
 
+#Also correctly factor variables as appropriate
 d$condition &lt;- factor(d$condition, levels = c(0, 1), labels = c(&quot;control&quot;, &quot;leg_prime&quot;))
 d$sex &lt;- as.factor(d$sex)
 d$environmentalist &lt;- as.factor(d$environmentalist)
@@ -556,7 +561,7 @@ kable(sobel_chart$Models)</code></pre>
 </div>
 <div id="exploratory-analyses" class="section level3">
 <h3>Exploratory analyses</h3>
-<p>Any follow-up analyses</p>
+<p>Any follow-up analyses will be added here</p>
 </div>
 </div>
 <div id="discussion" class="section level2">

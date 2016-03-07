@@ -16,6 +16,12 @@ Specifically, the paper finds that priming legacy motives increased donations to
 
 ##Methods
 
+###Link to Experiment
+The control condition is available online at: http://stanford.edu/~rhiac/Psych254/legacy_proj_control.html
+
+The experimental (prime) condition is available online at:
+http://stanford.edu/~rhiac/Psych254/legacy_proj_prime.html
+
 ###Power Analysis
 
 The original study reports cohen's d's ranging from 0.23 to 0.36 on the various measures used (legacy motives, climate change beliefs, behavioral intentions, and donation measure). Therefore, I've assumed a cohen's d of 0.23, to be conservative. The standard deviation for most of the measures is approximately 1.
@@ -87,14 +93,14 @@ files <- dir(paste0(path,"sandbox-results"),
              pattern = "*.json")
 d.raw <- data.frame(stringsAsFactors = FALSE)
 
-
-
 for (f in files) {
 jf <- paste0(path, "/sandbox-results/", f)
 jd <- fromJSON(file=jf)
 
+#get rid of all of the instruction trials, which are labeled with 0
 cols <- which(jd$answers$data$trial_number_block != 0)
 
+#This code formats everything into a useable dataframe, and accounts for missing values by turning them into NA's
 id <- data.frame(workerid = jd$WorkerId, 
                 totalTime = jd$answers$data$totalTime,
                 totalHiddenTime = jd$answers$data$totalHiddenTime,
@@ -104,8 +110,7 @@ id <- data.frame(workerid = jd$WorkerId,
                 sentence = jd$answers$data$sentence[cols],
                 rating = jd$answers$data$rating, 
                 environmentalist =
-                  ifelse(is.null(unlist(jd$answers$data$environmentalist)),NA,
-                                          unlist(jd$answers$data$environmentalist)),
+                  ifelse(is.null(unlist(jd$answers$data$environmentalist)),NA,                                          unlist(jd$answers$data$environmentalist)),
                 legacy_essay = jd$answers$data$legacy_essay,
                 sex = 
                   ifelse(is.null(unlist(jd$answers$data$sex)), NA, 
@@ -133,12 +138,12 @@ fillers <- c("I am well liked by my friends",
             "Others would say I have made unique contributions to my community or society")
 d.raw <- d.raw %>% filter(!sentence %in% fillers)
 
-# Number of participants
+# Check number of participants to ensure no repeats
 n = length(unique(d.raw$workerid))
 ```
 
 
-The 3 DV's are ratings on the behavioral intentions trials, ratings on the environmental attitudes trials, and ratings on the legacy motives trials. The indexes for each are computed as the average of the ratings for the items that make up the composite index.
+The 3 DV's are **ratings** on the **behavioral intentions trials**, **ratings** on the **environmental attitudes trials**, and **ratings on the legacy motives trials**. The indexes for each are computed as the average of the ratings for the items that make up the composite index.
 
 ```{r, message=FALSE, warning=FALSE}
 trial_index <- d.raw %>%
@@ -151,6 +156,7 @@ d <- d %>%
          env_att_index = env_att,
          leg_mot_index = legacy_motives2)
 
+#Also correctly factor variables as appropriate
 d$condition <- factor(d$condition, levels = c(0, 1), labels = c("control", "leg_prime"))
 d$sex <- as.factor(d$sex)
 d$environmentalist <- as.factor(d$environmentalist)
@@ -318,10 +324,8 @@ Bootstrapping
 ```
 
 
-
-
 ###Exploratory analyses
-Any follow-up analyses
+Any follow-up analyses will be added here
 
 ##Discussion
 
