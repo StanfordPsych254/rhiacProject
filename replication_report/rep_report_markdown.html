@@ -217,6 +217,9 @@ id &lt;- data.frame(workerid = jd$WorkerId,
                   ifelse(is.null(unlist(df$race)), NA,
                          unlist(df$race)),
                 year = df$year,
+                english =
+                  ifelse(is.null(unlist(df$english)),NA,
+                         unlist(df$english)),
                 grandparent =
                   ifelse(is.null(unlist(df$grandparent)),NA,
                          unlist(df$grandparent)),
