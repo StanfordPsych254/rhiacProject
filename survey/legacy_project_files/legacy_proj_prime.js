@@ -173,6 +173,7 @@ data: {
 	year: [],
 	race: [],
 	grandparent: [],
+	english: [],
 	totalHiddenTime: [],
 	startTime: [],
 	endTime: [],
@@ -313,6 +314,7 @@ data: {
 	experiment.data.children.push($("input[name=children]:checked").val());
 	experiment.data.race.push($("input[name=race]:checked").val());
 	experiment.data.grandparent.push($("input[name=grandparent]:checked").val());
+	experiment.data.english.push($("input[name=english]:checked").val());
 	experiment.data.environmentalist.push($("input[name=environmentalist]:checked").val());
 	experiment.data.sex.push($("input[name=sex]:checked").val());
 	experiment.data.year.push(document.getElementById("year").value);

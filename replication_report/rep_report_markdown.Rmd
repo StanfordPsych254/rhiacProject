@@ -24,39 +24,45 @@ http://stanford.edu/~rhiac/Psych254/legacy_proj_prime.html
 
 ###Power Analysis
 
-The original study reports cohen's d's ranging from 0.23 to 0.36 on the various measures used (legacy motives, climate change beliefs, behavioral intentions, and donation measure). Therefore, I've assumed a cohen's d of 0.23, to be conservative. The standard deviation for most of the measures is approximately 1.
+The original study reports cohen's d's ranging from 0.23 to 0.36 on the various measures used (legacy motives, climate change beliefs, behavioral intentions, and donation measure). Therefore, I've run power analysis on one of the main effects, the effect of condition on behavioral intentions (d=0.36)
 
 ```{r power95}
-power.t.test(delta=0.23, sd=1, power=.95, sig.level=0.05)
+power.t.test(delta=0.36, power=.95, sig.level=0.05)
 ```
 ```{r power90}
-power.t.test(delta=0.23, sd=1, power=.90, sig.level=0.05)
+power.t.test(delta=0.36, power=.90, sig.level=0.05)
 ```
 ```{r power80}
-power.t.test(delta=0.23, sd=1, power=.80, sig.level=0.05)
+power.t.test(delta=0.36, power=.80, sig.level=0.05)
 ```
 
+Obviously a larger sample is required for adequate power to detect the smaller effects.
 
 ###Planned Sample
-The original paper uses a sample size of about 300 participants, based on the estimated effect size from a pilot test. This is the most feasible number of participants that will not severely underpower the study.
+The original paper uses a sample size of 312 participants, based on the estimated effect size from a pilot test. This is the most feasible number of participants that will not severely underpower the study. I will be adding an additional 5% for a total of 328 participants, to account for any possible exclusions.
 
+```{r}
+power.t.test(delta=0.36, sig.level=0.05, n = 164)
+```
+
+Using a sample of 312 participants, the smallest sampl
+
+```{r}
+power.t.test(power=.8, sig.level=0.05, n = 164)
+```
+
+Given a sample of 312 participants, the project has 80% power to detect an effect size greater than d=0.31. 
 
 ###Materials & Procedure
 
 **Writing activity**
-Participants will be randomly assigned to one of two conditions. As per the original experiment, "In the legacy condition, participants began by writing a short essay describing what they want to be remembered for by future generations...The essay-writing task was omitted in the control condition, which otherwise followed the same procedure as the legacy condition." The writing task will be copied verbatim from the project's supplemental materials online.
+Participants will be assigned to one of two conditions. As per the original experiment, "In the legacy condition, participants began by writing a short essay describing what they want to be remembered for by future generations...The essay-writing task was omitted in the control condition, which otherwise followed the same procedure as the legacy condition." The writing task will be copied verbatim from the project's supplemental materials online.
 
 **Environmental Behaviors**
 As per the original experiment, "Participants next answered two sets of questions, one assessing their beliefs about climate change and the other their willingness to take proenvironmental action. Climate-change beliefs were measured using the average score of four randomly ordered items (α = .88; e.g., “I feel a responsibility to reduce my personal contribution to climate change”). Participants responded to each statement on a 7-point scale ranging from 1 (strongly disagree) to 7 (strongly agree). Similarly, proenvironmental behavioral intentions were measured using the average score of six items that asked participants how often they intend to perform actions to help mitigate climate change over the next month (α = .76; e.g., “Buy green products instead of regular products”); responses were made on a scale from 1 (never) to 6 (all the time). 
 
 **Manipulation Check - Legacy Motives**
 Following the original experiment, "This measure consisted of the average score of three items relating to legacy motives (α = .82): (a) “It is important to me to leave a positive legacy,” (b) “It is important for me to leave a positive mark on society,” and (c) “I care about what future generations think of me.” Participants indicated the extent to which each statement described them on a scale from 1 (not at all) to 6 (a great amount). This legacy-motives scale was placed at the end of the survey..."
-
-The control condition is available online at:
-http://stanford.edu/~rhiac/Psych254/legacy_proj_control.html
-
-The legacy prime condition is available online at:
-http://stanford.edu/~rhiac/Psych254/legacy_proj_prime.html
 
 ###Analysis Plan
 As per the original paper, no participants will be excluded from analysis. In addition, although additional analysis was performed controlling for a range of demographic variables (to show the robustness of the finding), the original analysis examines the effect of condition on the various DV's, without controlling for demographic variables. 
@@ -101,30 +107,32 @@ jd <- fromJSON(file=jf)
 cols <- which(jd$answers$data$trial_number_block != 0)
 
 #This code formats everything into a useable dataframe, and accounts for missing values by turning them into NA's
+df <- jd$answers$data
+
 id <- data.frame(workerid = jd$WorkerId, 
-                totalTime = jd$answers$data$totalTime,
-                totalHiddenTime = jd$answers$data$totalHiddenTime,
-                condition = jd$answers$data$condition,
-                trialNum = jd$answers$data$trial_number_block[cols],
-                trialType = jd$answers$data$trial_type[cols],
-                sentence = jd$answers$data$sentence[cols],
-                rating = jd$answers$data$rating, 
+                totalTime = df$totalTime,
+                totalHiddenTime = df$totalHiddenTime,
+                condition = df$condition,
+                trialNum = df$trial_number_block[cols],
+                trialType = df$trial_type[cols],
+                sentence = df$sentence[cols],
+                rating = df$rating, 
                 environmentalist =
-                  ifelse(is.null(unlist(jd$answers$data$environmentalist)),NA,                                          unlist(jd$answers$data$environmentalist)),
-                legacy_essay = jd$answers$data$legacy_essay,
+                  ifelse(is.null(unlist(df$environmentalist)),NA,                                          unlist(df$environmentalist)),
+                legacy_essay = df$legacy_essay,
                 sex = 
-                  ifelse(is.null(unlist(jd$answers$data$sex)), NA, 
-                         unlist(jd$answers$data$sex)), 
+                  ifelse(is.null(unlist(df$sex)), NA, 
+                         unlist(df$sex)), 
                 race = 
-                  ifelse(is.null(unlist(jd$answers$data$race)), NA,
-                         unlist(jd$answers$data$race)),
-                year = jd$answers$data$year,
+                  ifelse(is.null(unlist(df$race)), NA,
+                         unlist(df$race)),
+                year = df$year,
                 grandparent =
-                  ifelse(is.null(unlist(jd$answers$data$grandparent)),NA,
-                         unlist(jd$answers$data$grandparent)),
+                  ifelse(is.null(unlist(df$grandparent)),NA,
+                         unlist(df$grandparent)),
                 children = 
-                  ifelse(is.null(unlist(jd$answers$data$children)),NA,
-                         unlist(jd$answers$data$children)),
+                  ifelse(is.null(unlist(df$children)),NA,
+                         unlist(df$children)),
                 stringsAsFactors=FALSE)
 
 d.raw <- bind_rows(d.raw, id)
@@ -143,7 +151,7 @@ n = length(unique(d.raw$workerid))
 ```
 
 
-The 3 DV's are **ratings** on the **behavioral intentions trials**, **ratings** on the **environmental attitudes trials**, and **ratings on the legacy motives trials**. The indexes for each are computed as the average of the ratings for the items that make up the composite index.
+The 3 DV's are ratings on the behavioral intentions trials, ratings on the environmental attitudes trials, and ratings on the legacy motives trials. The indexes for each are computed as the average of the ratings for the items that make up the composite index.
 
 ```{r, message=FALSE, warning=FALSE}
 trial_index <- d.raw %>%
@@ -209,11 +217,15 @@ Figure 2a:
 ```{r, message=FALSE, warning=FALSE}
 ms_beh <- d %>% 
   group_by(condition) %>% 
-  summarise("beh_int_mean" = mean(beh_int_index, na.rm=TRUE))
+  summarise(meanBeh = mean(beh_int_index, na.rm = TRUE),
+            sem = sd(beh_int_index) / sqrt(n()), 
+            ci95 = 1.96*sem)
 
-ggplot(ms_beh, aes(x=condition, y=beh_int_mean)) + 
+ggplot(ms_beh, aes(x=condition, y=meanBeh)) + 
   geom_bar(stat = "identity") + 
-  ylim(0, 6)
+  ylim(0, 6) +
+  geom_errorbar(aes(ymin = meanBeh - ci95, 
+                     ymax = meanBeh + ci95), width=0.25)
 ```
 
 Mean behavioral attitudes score by condition
@@ -221,11 +233,16 @@ Mean behavioral attitudes score by condition
 ```{r, message=FALSE, warning=FALSE}
 ms_att <- d %>% 
   group_by(condition) %>% 
-  summarise("env_att_mean" = mean(env_att_index, na.rm=TRUE))
+   summarise(meanAtt = mean(env_att_index, na.rm = TRUE),
+            sem = sd(env_att_index) / sqrt(n()), 
+            ci95 = 1.96*sem)
 
-ggplot(ms_att, aes(x=condition, y=env_att_mean)) + 
+ggplot(ms_att, aes(x=condition, y=meanAtt)) + 
   geom_bar(stat = "identity") + 
-  ylim(0, 6)
+  ylim(0, 6) +
+  geom_errorbar(aes(ymin = meanAtt - ci95, 
+                     ymax = meanAtt + ci95), width=0.25)
+
 ```
 
 
@@ -233,7 +250,7 @@ ggplot(ms_att, aes(x=condition, y=env_att_mean)) +
 
 Effect of legacy prime on legacy motives
 
-The original paper reports that, "As expected, the essay manipulation successfully enhanced overall legacy motives. Almost 10 min after being exposed to the manipulation, participants who wrote the essay reported higher legacy motives (M = 4.47, SD = 1.06), compared with those in the control con- dition (M = 4.19, SD = 1.05), F(1, 310) = 5.64, p = .018, Cohen’s d = 0.27."
+The original paper reports that, "As expected, the essay manipulation successfully enhanced overall legacy motives. Almost 10 min after being exposed to the manipulation, participants who wrote the essay reported higher legacy motives (M = 4.47, SD = 1.06), compared with those in the control condition (M = 4.19, SD = 1.05), F(1, 310) = 5.64, p = .018, Cohen’s d = 0.27."
 
 ```{r, message=FALSE, warning=FALSE}
 model <- lm(leg_mot_index ~ condition, d)
