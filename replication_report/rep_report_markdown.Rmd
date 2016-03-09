@@ -28,14 +28,8 @@ https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/27740&s
 
 ###Power Analysis
 
-The original study reports cohen's d's ranging from 0.23 to 0.36 on the various measures used (legacy motives, climate change beliefs, behavioral intentions, and donation measure). Therefore, I've run power analysis on one of the main effects, the effect of condition on behavioral intentions (d=0.36)
+The original study reports cohen's d's ranging from 0.23 to 0.36 on the various measures used (legacy motives, climate change beliefs, behavioral intentions, and donation measure). Therefore, I've run power analysis on one of the key effects, the effect of condition on behavioral intentions (d=0.36)
 
-```{r power95}
-power.t.test(delta=0.36, power=.95, sig.level=0.05)
-```
-```{r power90}
-power.t.test(delta=0.36, power=.90, sig.level=0.05)
-```
 ```{r power80}
 power.t.test(delta=0.36, power=.80, sig.level=0.05)
 ```
@@ -43,33 +37,25 @@ power.t.test(delta=0.36, power=.80, sig.level=0.05)
 Obviously a larger sample is required for adequate power to detect the smaller effects.
 
 ###Planned Sample
-The original paper uses a sample size of 312 participants, based on the estimated effect size from a pilot test. This is the most feasible number of participants that will not severely underpower the study. I will be adding an additional 5% for a total of 328 participants, to account for any possible exclusions.
-
-```{r}
-power.t.test(delta=0.36, sig.level=0.05, n = 164)
-```
-
-Using a sample of 312 participants, the smallest effect size that the study will detect with 80% power:
-
-```{r}
-power.t.test(power=.8, sig.level=0.05, n = 164)
-```
-
-Given a sample of 312 participants, the project has 80% power to detect an effect size greater than d=0.31. 
+The original paper uses a sample size of 312 participants, based on the estimated effect size from a pilot test conducted by the original authors indicating a small to medium effect size. This is the most feasible number of participants that will not severely underpower the study. I will be adding an additional 5% for a total of 328 participants, to account for any possible exclusions. Given a sample of 312 participants, the project has 80% power to detect an effect size larger than d=0.31 (which includes the key effect being examined in the replication). 
 
 ###Materials & Procedure
 
 **Writing activity**
-Participants will be assigned to one of two conditions. The two conditions will be posted as two sepatate MTurk HITs, given the different amounts of time required. As per the original experiment, "In the legacy condition, participants began by writing a short essay describing what they want to be remembered for by future generations...The essay-writing task was omitted in the control condition, which otherwise followed the same procedure as the legacy condition." The writing task will be copied verbatim from the project's supplemental materials online.
+Participants will be assigned to one of two conditions. The two conditions will be posted as two sepatate MTurk HITs, given the different amounts of compensation required (due to additional time spent writing). As per the original experiment, "In the legacy condition, participants began by writing a short essay describing what they want to be remembered for by future generations...The essay-writing task was omitted in the control condition, which otherwise followed the same procedure as the legacy condition." The writing task will be copied verbatim from the project's supplemental materials online.
+
+Like the original study, a time minimum will be imposed on participants. In the current study, participants will need to wait 4 minutes before being allowed to advance to the next page. In addition, participants will be required to write a minimum of 20 words (approximately 2-3 sentences) before advancing. 
 
 **Environmental Behaviors**
-As per the original experiment, "Participants next answered two sets of questions, one assessing their beliefs about climate change and the other their willingness to take proenvironmental action. Climate-change beliefs were measured using the average score of four randomly ordered items (α = .88; e.g., “I feel a responsibility to reduce my personal contribution to climate change”). Participants responded to each statement on a 7-point scale ranging from 1 (strongly disagree) to 7 (strongly agree). Similarly, proenvironmental behavioral intentions were measured using the average score of six items that asked participants how often they intend to perform actions to help mitigate climate change over the next month (α = .76; e.g., “Buy green products instead of regular products”); responses were made on a scale from 1 (never) to 6 (all the time). 
+As per the original experiment, "Participants next answered two sets of questions, one assessing their beliefs about climate change and the other their willingness to take proenvironmental action. Climate-change beliefs were measured using the average score of four randomly ordered items (...e.g., “I feel a responsibility to reduce my personal contribution to climate change”). Participants responded to each statement on a 7-point scale ranging from 1 (strongly disagree) to 7 (strongly agree). Similarly, proenvironmental behavioral intentions were measured using the average score of six items that asked participants how often they intend to perform actions to help mitigate climate change over the next month (...e.g., “Buy green products instead of regular products”); responses were made on a scale from 1 (never) to 6 (all the time)."
 
-**Manipulation Check - Legacy Motives**
-Following the original experiment, "This measure consisted of the average score of three items relating to legacy motives (α = .82): (a) “It is important to me to leave a positive legacy,” (b) “It is important for me to leave a positive mark on society,” and (c) “I care about what future generations think of me.” Participants indicated the extent to which each statement described them on a scale from 1 (not at all) to 6 (a great amount). This legacy-motives scale was placed at the end of the survey..."
+All participants completed the behavioral intentions questions first, then the climate change beliefs questions. This is because for the purposes of replication, we are focusing on the biggest effect in the original study, behavioral intentions, as our key effect (but will also try to replicate the environmental attitudes finding as well).
+
+**Manipulation Check/Mediator - Legacy Motives**
+Following the original experiment, "This measure consisted of the average score of three items relating to legacy motives...: (a) “It is important to me to leave a positive legacy,” (b) “It is important for me to leave a positive mark on society,” and (c) “I care about what future generations think of me.” Participants indicated the extent to which each statement described them on a scale from 1 (not at all) to 6 (a great amount). This legacy-motives scale was placed at the end of the survey..." This section also included a number of general prosociality items, which were not expected to mediate the effect of legacy motives on environmental behaviors and attitudes, and are not included in analysis, as per the original paper.
 
 ###Analysis Plan
-As per the original paper, no participants will be excluded from analysis. In addition, although additional analysis was performed controlling for a range of demographic variables (to show the robustness of the finding), the original analysis examines the effect of condition on the various DV's, without controlling for demographic variables. 
+As per the original paper, no participants will be excluded from analysis, except for participants who took the survey more than once (in which case only the first instance will be counted). In addition, although additional analysis was performed controlling for a range of demographic variables (to show the robustness of the finding), the original analysis examines the effect of condition on the various DV's, without controlling for demographic variables. 
 
 Linear regressions will be performed to examine the effect of the legacy prime on legacy motives, climate change beliefs, and behavioral intentions. 
 
@@ -78,7 +64,7 @@ In addition, mediation analysis will be conducted using both a sobel's z test, a
 ###Differences from Original Study
 In the original study, all participants were paid the same amount. However, in this study, we will use two separate MTurk HITs, one which pays $0.20 (control) and one that pays $0.60 (legacy prime). 
 
-In addition, in the original study the average time taken to write the essay was 6.5 minutes. However, we will be shortening the essay writing task to 4 minutes instead. In addition, a 20 word minumum was imposed on the essay task before submission was allowed. There was no countdown indicator, but participants were asked to write more if they tried to submit an essay with under 20 words.
+In addition, in the original study the average time taken to write the essay was 6.5 minutes. However, we will be shortening the essay writing task to 4 minutes instead. This 4 minute minimum was enforced by not allowing participants to advance to the next page until 4 minutes had elapsed. In addition, a 20 word minumum was imposed on the essay task before submission was allowed. There was no countdown indicator, but participants were asked to write more if they tried to submit an essay with under 20 words.
 
 Finally, in the original study, an additional DV was included, donation to an environmental charity. Given that this DV shows the same trend as the other DV's being measured, this DV will be excluded from the present replication. 
 
