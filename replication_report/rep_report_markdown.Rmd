@@ -22,6 +22,10 @@ The control condition is available online at: http://stanford.edu/~rhiac/Psych25
 The experimental (prime) condition is available online at:
 http://stanford.edu/~rhiac/Psych254/legacy_proj_prime.html
 
+###Link to original study supplements
+All of the supplements for the original study (including both survey questions and data) are available at:
+https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/27740&studyListingIndex=3_81dd3734f5b119094c28f53886bc
+
 ###Power Analysis
 
 The original study reports cohen's d's ranging from 0.23 to 0.36 on the various measures used (legacy motives, climate change beliefs, behavioral intentions, and donation measure). Therefore, I've run power analysis on one of the main effects, the effect of condition on behavioral intentions (d=0.36)
@@ -45,7 +49,7 @@ The original paper uses a sample size of 312 participants, based on the estimate
 power.t.test(delta=0.36, sig.level=0.05, n = 164)
 ```
 
-Using a sample of 312 participants, the smallest sampl
+Using a sample of 312 participants, the smallest effect size that the study will detect with 80% power:
 
 ```{r}
 power.t.test(power=.8, sig.level=0.05, n = 164)
@@ -56,7 +60,7 @@ Given a sample of 312 participants, the project has 80% power to detect an effec
 ###Materials & Procedure
 
 **Writing activity**
-Participants will be assigned to one of two conditions. As per the original experiment, "In the legacy condition, participants began by writing a short essay describing what they want to be remembered for by future generations...The essay-writing task was omitted in the control condition, which otherwise followed the same procedure as the legacy condition." The writing task will be copied verbatim from the project's supplemental materials online.
+Participants will be assigned to one of two conditions. The two conditions will be posted as two sepatate MTurk HITs, given the different amounts of time required. As per the original experiment, "In the legacy condition, participants began by writing a short essay describing what they want to be remembered for by future generations...The essay-writing task was omitted in the control condition, which otherwise followed the same procedure as the legacy condition." The writing task will be copied verbatim from the project's supplemental materials online.
 
 **Environmental Behaviors**
 As per the original experiment, "Participants next answered two sets of questions, one assessing their beliefs about climate change and the other their willingness to take proenvironmental action. Climate-change beliefs were measured using the average score of four randomly ordered items (α = .88; e.g., “I feel a responsibility to reduce my personal contribution to climate change”). Participants responded to each statement on a 7-point scale ranging from 1 (strongly disagree) to 7 (strongly agree). Similarly, proenvironmental behavioral intentions were measured using the average score of six items that asked participants how often they intend to perform actions to help mitigate climate change over the next month (α = .76; e.g., “Buy green products instead of regular products”); responses were made on a scale from 1 (never) to 6 (all the time). 
@@ -72,7 +76,7 @@ Linear regressions will be performed to examine the effect of the legacy prime o
 In addition, mediation analysis will be conducted using both a sobel's z test, and using bootstrapping as suggested by Preacher & Hayes, 2008, with 5,000 samples. Specifically, it is predicted that legacy motives mediates the relationship between condition (legacy prime/no legacy prime) and both climate change attitudes and intentions.
 
 ###Differences from Original Study
-In the original study, all participants were paid the same amount. However, in this study, we will pay a base rate of $0.20, and an additional bonus of $0.40 to the people in the legacy motives priming condition (ie. the people who write the 4 minute essay). 
+In the original study, all participants were paid the same amount. However, in this study, we will use two separate MTurk HITs, one which pays $0.20 (control) and one that pays $0.60 (legacy prime). 
 
 In addition, in the original study the average time taken to write the essay was 6.5 minutes. However, we will be shortening the essay writing task to 4 minutes instead. In addition, a 20 word minumum was imposed on the essay task before submission was allowed. There was no countdown indicator, but participants were asked to write more if they tried to submit an essay with under 20 words.
 
@@ -95,12 +99,12 @@ Read in the data from .json files, and format into a dataframe.
 
 ```{r, message=FALSE, warning=FALSE}
 path <- "~/Desktop/2016_Winter/Stats_254/Project/rhiacProject/replication_report/"
-files <- dir(paste0(path,"sandbox-results"), 
+files <- dir(paste0(path,"production-results"), 
              pattern = "*.json")
 d.raw <- data.frame(stringsAsFactors = FALSE)
 
 for (f in files) {
-jf <- paste0(path, "/sandbox-results/", f)
+jf <- paste0(path, "/production-results/", f)
 jd <- fromJSON(file=jf)
 
 #get rid of all of the instruction trials, which are labeled with 0
@@ -111,7 +115,8 @@ df <- jd$answers$data
 
 id <- data.frame(workerid = jd$WorkerId, 
                 totalTime = df$totalTime,
-                totalHiddenTime = df$totalHiddenTime,
+                totalHiddenTime = ifelse(is.null(unlist(df$totalHiddenTime)),NA,
+                         unlist(df$totalHiddenTime)),
                 condition = df$condition,
                 trialNum = df$trial_number_block[cols],
                 trialType = df$trial_type[cols],
