@@ -109,7 +109,8 @@ id <- data.frame(workerid = jd$WorkerId,
                 sentence = df$sentence[cols],
                 rating = df$rating, 
                 environmentalist =
-                  ifelse(is.null(unlist(df$environmentalist)),NA,                                          unlist(df$environmentalist)),
+                  ifelse(is.null(unlist(df$environmentalist)), NA,
+                         unlist(df$environmentalist)),
                 legacy_essay = df$legacy_essay,
                 sex = 
                   ifelse(is.null(unlist(df$sex)), NA, 
