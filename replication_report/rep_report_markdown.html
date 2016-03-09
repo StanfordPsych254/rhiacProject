@@ -78,6 +78,10 @@ img {
 <p>The control condition is available online at: <a href="http://stanford.edu/~rhiac/Psych254/legacy_proj_control.html" class="uri">http://stanford.edu/~rhiac/Psych254/legacy_proj_control.html</a></p>
 <p>The experimental (prime) condition is available online at: <a href="http://stanford.edu/~rhiac/Psych254/legacy_proj_prime.html" class="uri">http://stanford.edu/~rhiac/Psych254/legacy_proj_prime.html</a></p>
 </div>
+<div id="link-to-original-study-supplements" class="section level3">
+<h3>Link to original study supplements</h3>
+<p>All of the supplements for the original study (including both survey questions and data) are available at: <a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/27740&amp;studyListingIndex=3_81dd3734f5b119094c28f53886bc" class="uri">https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/27740&amp;studyListingIndex=3_81dd3734f5b119094c28f53886bc</a></p>
+</div>
 <div id="power-analysis" class="section level3">
 <h3>Power Analysis</h3>
 <p>The original study reports cohen’s d’s ranging from 0.23 to 0.36 on the various measures used (legacy motives, climate change beliefs, behavioral intentions, and donation measure). Therefore, I’ve run power analysis on one of the main effects, the effect of condition on behavioral intentions (d=0.36)</p>
@@ -134,7 +138,7 @@ img {
 ##     alternative = two.sided
 ## 
 ## NOTE: n is number in *each* group</code></pre>
-<p>Using a sample of 312 participants, the smallest sampl</p>
+<p>Using a sample of 312 participants, the smallest effect size that the study will detect with 80% power:</p>
 <pre class="r"><code>power.t.test(power=.8, sig.level=0.05, n = 164)</code></pre>
 <pre><code>## 
 ##      Two-sample t test power calculation 
@@ -151,7 +155,7 @@ img {
 </div>
 <div id="materials-procedure" class="section level3">
 <h3>Materials &amp; Procedure</h3>
-<p><strong>Writing activity</strong> Participants will be assigned to one of two conditions. As per the original experiment, “In the legacy condition, participants began by writing a short essay describing what they want to be remembered for by future generations…The essay-writing task was omitted in the control condition, which otherwise followed the same procedure as the legacy condition.” The writing task will be copied verbatim from the project’s supplemental materials online.</p>
+<p><strong>Writing activity</strong> Participants will be assigned to one of two conditions. The two conditions will be posted as two sepatate MTurk HITs, given the different amounts of time required. As per the original experiment, “In the legacy condition, participants began by writing a short essay describing what they want to be remembered for by future generations…The essay-writing task was omitted in the control condition, which otherwise followed the same procedure as the legacy condition.” The writing task will be copied verbatim from the project’s supplemental materials online.</p>
 <p><strong>Environmental Behaviors</strong> As per the original experiment, “Participants next answered two sets of questions, one assessing their beliefs about climate change and the other their willingness to take proenvironmental action. Climate-change beliefs were measured using the average score of four randomly ordered items (α = .88; e.g., “I feel a responsibility to reduce my personal contribution to climate change”). Participants responded to each statement on a 7-point scale ranging from 1 (strongly disagree) to 7 (strongly agree). Similarly, proenvironmental behavioral intentions were measured using the average score of six items that asked participants how often they intend to perform actions to help mitigate climate change over the next month (α = .76; e.g., “Buy green products instead of regular products”); responses were made on a scale from 1 (never) to 6 (all the time).</p>
 <p><strong>Manipulation Check - Legacy Motives</strong> Following the original experiment, “This measure consisted of the average score of three items relating to legacy motives (α = .82): (a) “It is important to me to leave a positive legacy,” (b) “It is important for me to leave a positive mark on society,” and (c) “I care about what future generations think of me.” Participants indicated the extent to which each statement described them on a scale from 1 (not at all) to 6 (a great amount). This legacy-motives scale was placed at the end of the survey…”</p>
 </div>
@@ -163,7 +167,7 @@ img {
 </div>
 <div id="differences-from-original-study" class="section level3">
 <h3>Differences from Original Study</h3>
-<p>In the original study, all participants were paid the same amount. However, in this study, we will pay a base rate of $0.20, and an additional bonus of $0.40 to the people in the legacy motives priming condition (ie. the people who write the 4 minute essay).</p>
+<p>In the original study, all participants were paid the same amount. However, in this study, we will use two separate MTurk HITs, one which pays $0.20 (control) and one that pays $0.60 (legacy prime).</p>
 <p>In addition, in the original study the average time taken to write the essay was 6.5 minutes. However, we will be shortening the essay writing task to 4 minutes instead. In addition, a 20 word minumum was imposed on the essay task before submission was allowed. There was no countdown indicator, but participants were asked to write more if they tried to submit an essay with under 20 words.</p>
 <p>Finally, in the original study, an additional DV was included, donation to an environmental charity. Given that this DV shows the same trend as the other DV’s being measured, this DV will be excluded from the present replication.</p>
 </div>
