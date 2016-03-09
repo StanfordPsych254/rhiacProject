@@ -187,17 +187,18 @@ d$children <- as.factor(x = d$children)
 
 Histograms of our 3 index DV's by condition
 ```{r, message=FALSE, warning=FALSE}
+#added .1 so values at the max of scale show
 ggplot(d, aes(x=beh_int_index, fill=condition)) +
     geom_histogram(position="dodge", bins=7) + 
-    xlim(0, 6)
+    xlim(0, 6.1)
 
 ggplot(d, aes(x=env_att_index, fill=condition)) +
     geom_histogram(position="dodge", bins=7) + 
-    xlim(0, 7)
+    xlim(0, 7.1)
 
 ggplot(d, aes(x=leg_mot_index, fill=condition)) +
     geom_histogram(position="dodge", bins=7) + 
-    xlim(0, 6)
+    xlim(0, 6.1)
 ```
 
 Legacy Motives as a Predictor of Behavioral Intentions
